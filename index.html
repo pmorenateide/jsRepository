@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Videojuegos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a la Tienda de Videojuegos</h1>
+    </header>
+    <main>
+        <div id="games-list"></div>
+    </main>
+    <script>
+        const games = [
+            { id: 1, title: "The Legend of Zelda: Breath of the Wild", price: "$59.99" },
+            { id: 2, title: "Elden Ring", price: "$49.99" },
+            { id: 3, title: "God of War Ragnarok", price: "$59.99" },
+            { id: 4, title: "Cyberpunk 2077", price: "$39.99" }
+        ];
+
+        const gamesList = document.getElementById("games-list");
+        games.forEach(game => {
+            const div = document.createElement("div");
+            div.innerHTML = `<h2>${game.title}</h2><p>Precio: ${game.price}</p>`;
+            gamesList.appendChild(div);
+        });
+    </script>
+</body>
+</html>
