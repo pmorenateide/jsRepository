@@ -1,32 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Videojuegos</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>Bienvenido a la Tienda de Videojuegos</h1>
-    </header>
-    <main>
-        <div id="games-list"></div>
-    </main>
-    <script>
-        const games = [
-            { id: 1, title: "The Legend of Zelda: Breath of the Wild", price: "$59.99" },
-            { id: 2, title: "Elden Ring", price: "$49.99" },
-            { id: 3, title: "God of War Ragnarok", price: "$59.99" },
-            { id: 4, title: "Cyberpunk 2077", price: "$39.99" }
-        ];
+He agregado un endpoint `/games` que devuelve los juegos en formato JSON. Ahora, en `public/index.html`, puedes agregar animaciones con JavaScript así:
 
+```html
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
         const gamesList = document.getElementById("games-list");
-        games.forEach(game => {
+
+        const response = await fetch("/games");
+        const games = await response.json();
+
+        games.forEach((game, index) => {
             const div = document.createElement("div");
+            div.classList.add("game-item");
             div.innerHTML = `<h2>${game.title}</h2><p>Precio: ${game.price}</p>`;
             gamesList.appendChild(div);
+
+            // Animación con un pequeño delay para cada elemento
+            setTimeout(() => {
+                div.style.opacity = "1";
+                div.style.transform = "translateY(0)";
+            }, index * 300);
         });
-    </script>
-</body>
-</html>
+    });
+</script>
+
+<style>
+    .game-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+</style>
+```
+
+Esto hará que los elementos aparezcan con un efecto de desvanecimiento y desplazamiento al cargar la página. 🚀
